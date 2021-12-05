@@ -13,6 +13,7 @@ namespace SnakeAndLadder
         private int DieRolled;
         private Dictionary<int, int> dictLadders;
         private Dictionary<int, int> dictSnakes;
+        private int NoOfTimeDiceRolled;
         public SnakeAndLadder()
         {
             objRandom = new Random();
@@ -34,9 +35,16 @@ namespace SnakeAndLadder
             while(true)
             {
                 RollADie();
-                CheckPoint();
-                if(CheckWinner())
+                if (playerPosition > 100)
                 {
+                    playerPosition = playerPosition - DieRolled;
+                }
+                Console.WriteLine("PlayerPosition: {0}", playerPosition);
+                CheckPoint();
+                if (CheckWinner())
+                {
+                    Console.WriteLine("No of times dice rolled {0}", NoOfTimeDiceRolled);
+                    Console.WriteLine("Player Won");
                     break;
                 }
             }
@@ -59,6 +67,7 @@ namespace SnakeAndLadder
                 Console.WriteLine("Ladder: +{0}", DieRolled);
                 playerPosition = playerPosition + DieRolled;
             }
+            Console.WriteLine("Player Position: {0}", playerPosition);
             dictSnakes.TryGetValue(playerPosition,out snakeBite);
             if(snakeBite > 0)
             {
@@ -69,7 +78,7 @@ namespace SnakeAndLadder
         }
         private bool CheckWinner()
         {
-            if (playerPosition > 100)
+            if (playerPosition >= 100)
             {
                 playerPosition = playerPosition - DieRolled;
             }
@@ -84,6 +93,7 @@ namespace SnakeAndLadder
                 return false;
             }
         }
+
 
 
         
